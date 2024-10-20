@@ -1,0 +1,14 @@
+using Knight
+using Test
+using Aqua
+using JET
+
+@testset "Knight.jl" begin
+    @testset "Code quality (Aqua.jl)" begin
+        Aqua.test_all(Knight)
+    end
+    @testset "Code linting (JET.jl)" begin
+        JET.test_package(Knight; target_defined_modules = true)
+    end
+    # Write your tests here.
+end

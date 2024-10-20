@@ -1,0 +1,7 @@
+name = "Knight"
+uuid = "c8aa5d94-5da2-40bd-b1c9-4819b3cd7bf9"
+authors = ["Orestis Ousoultzoglou <orousoultzoglou@gmail.com>"]
+version = "0.0.1-DEV"
+
+[compat]
+julia = "1.11"
