@@ -50,10 +50,10 @@
     ILLEGAL
 end
 
-struct Token
+struct Token{L <: AbstractLiteral}
     type::TokenType
     lexeme::String
-    literal::AbstractLiteral
+    literal::L
     line::Int
 end
 

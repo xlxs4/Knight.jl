@@ -32,6 +32,8 @@ function scan_token!(s::Scanner)
         add_token!(s, COMMA)
     elseif c == '.'
         add_token!(s, DOT)
+    elseif c == '-'
+        add_token!(s, MINUS)
     elseif c == '+'
         add_token!(s, PLUS)
     elseif c == ';'
@@ -62,7 +64,11 @@ function scan_token!(s::Scanner)
     elseif c == '"'
         _string(s)
     else
-        error(s.line, "Unexpected character $(c).")
+        if isdigit(c)
+            number(s)
+        else
+            error(s.line, "Unexpected character $(c).")
+        end
     end
     return nothing
 end
@@ -84,9 +90,29 @@ function _string(s::Scanner)
     return nothing
 end
 
+function number(s::Scanner)
+    while isdigit(peek(s))
+        advance!(s)
+    end
+    if (peek(s) == '.' && isdigit(peeknext(s)))
+        advance!(s)
+        while isdigit(peek(s))
+            advance!(s)
+        end
+    end
+    val = s.source[(s.start + 1):s.curr]
+    add_token!(s, NUMBER, FloatLiteral(parse(Float64, val)))
+    return nothing
+end
+
 function peek(s::Scanner)
     is_at_end(s) && return '\0'
     return s.source[s.curr + 1]
+end
+
+function peeknext(s::Scanner)
+    (s.curr + 1 >= length(s.source)) && return '\0'
+    return s.source[s.curr + 2]
 end
 
 function _match(s::Scanner, expected)
