@@ -53,9 +53,11 @@ end
 struct Token
     type::TokenType
     lexeme::String
+    literal::AbstractLiteral
+    line::Int
 end
 
 function Base.show(io::IO, t::Token)
-    println(io, "$(t.type): `$(t.lexeme)`")
+    println(io, "$(t.type): `$(t.lexeme)` $(t.literal)")
     return nothing
 end
