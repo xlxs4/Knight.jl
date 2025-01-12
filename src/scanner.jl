@@ -66,6 +66,8 @@ function scan_token!(s::Scanner)
     else
         if isdigit(c)
             number(s)
+        elseif isalpha(c)
+            identifier(s)
         else
             error(s.line, "Unexpected character $(c).")
         end
@@ -104,6 +106,19 @@ function number(s::Scanner)
     add_token!(s, NUMBER, FloatLiteral(parse(Float64, val)))
     return nothing
 end
+
+function identifier(s::Scanner)
+    while is_alphanumeric(peek(s))
+        advance!(s)
+    end
+    add_token!(s, IDENTIFIER)
+    return nothing
+end
+
+function isalpha(c)
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_'
+end
+is_alphanumeric(c) = isalpha(c) || isdigit(c)
 
 function peek(s::Scanner)
     is_at_end(s) && return '\0'

@@ -1,3 +1,4 @@
 ( ) { } , . - + ; * ! != == = > >= < <= / ! //this is a comment and should be ignored
 "and this is a string" // and it shouldn't be ignored!
 12.34
+foobar
