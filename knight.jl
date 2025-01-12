@@ -10,6 +10,6 @@ function main(ARGS)
     else
         Knight.runprompt()
     end
-    exit(0)
+    return exit(0)
 end
 @main

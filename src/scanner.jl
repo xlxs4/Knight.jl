@@ -79,19 +79,19 @@ function _string(s::Scanner)
         return nothing
     end
     advance!(s)
-    val = s.source[s.start+2:s.curr-1]
+    val = s.source[(s.start + 2):(s.curr - 1)]
     add_token!(s, STRING, StringLiteral(val))
     return nothing
 end
 
 function peek(s::Scanner)
     is_at_end(s) && return '\0'
-    return s.source[s.curr+1]
+    return s.source[s.curr + 1]
 end
 
 function _match(s::Scanner, expected)
     is_at_end(s) && return false
-    (s.source[s.curr+1] != expected) && return false
+    (s.source[s.curr + 1] != expected) && return false
     s.curr += 1
     return true
 end
@@ -107,7 +107,7 @@ function add_token!(s::Scanner, tokentype)
 end
 
 function add_token!(s::Scanner, tokentype, literal)
-    text = s.source[s.start+1:s.curr]
+    text = s.source[(s.start + 1):s.curr]
     push!(s.tokens, Token(tokentype, text, literal, s.line))
     return nothing
 end
